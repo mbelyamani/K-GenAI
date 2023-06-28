@@ -3,8 +3,9 @@ import { OpenAIStream, OpenAIStreamPayload } from "@/utils/OpenAIStream";
 import { oneLine, stripIndent } from "common-tags";
 import GPT3Tokenizer from "gpt3-tokenizer";
 
-const OPENAI_API_KEY="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";
-const OPENAI_PROXY = "";
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const OPENAI_PROXY = process.env.OPENAI_PROXY;
+
 export const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":

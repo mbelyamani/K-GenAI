@@ -3,9 +3,9 @@ import { supabaseClient } from "@/lib/embeddings-supabase";
 import * as cheerio from "cheerio";
 
 // embedding doc sizes
-const docSize: number = 1000;
-const OPENAI_API_KEY="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";
-const OPENAI_PROXY = "";
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const OPENAI_PROXY = process.env.OPENAI_PROXY;
+
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
