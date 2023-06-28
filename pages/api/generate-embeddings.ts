@@ -6,7 +6,8 @@ import * as cheerio from "cheerio";
 const docSize: number = 1000;
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const OPENAI_PROXY = process.env.OPENAI_PROXY;
+const OPENAI_PROXY = (process.env.OPENAI_PROXY == "") ? "https://api.openai.com" : process.env.OPENAI_PROXY;
+
 
 export default async function handle(
   req: NextApiRequest,
@@ -25,7 +26,7 @@ export default async function handle(
       console.log("\nURL: \n", url);
 
       const apiKey = OPENAI_API_KEY;
-      const apiURL = OPENAI_PROXY == "" ? "https://api.openai.com" : OPENAI_PROXY;
+      const apiURL = OPENAI_PROXY;
 
       const embeddingResponse = await fetch(
         apiURL + "/v1/embeddings",
