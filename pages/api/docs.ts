@@ -4,7 +4,7 @@ import { oneLine, stripIndent } from "common-tags";
 import GPT3Tokenizer from "gpt3-tokenizer";
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const OPENAI_PROXY = process.env.OPENAI_PROXY;
+const OPENAI_PROXY = (process.env.OPENAI_PROXY == "") ? "https://api.openai.com" : process.env.OPENAI_PROXY;
 
 export const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -45,8 +45,7 @@ const handler = async (req: Request): Promise<Response> => {
   // console.log("input: ", input);
 
   const apiKey = OPENAI_API_KEY;
-  
-  const apiURL = OPENAI_PROXY == "" ? "https://api.openai.com" : OPENAI_PROXY;
+  const apiURL = OPENAI_PROXY;
 
   const embeddingResponse = await fetch(
     apiURL + "/v1/embeddings",
