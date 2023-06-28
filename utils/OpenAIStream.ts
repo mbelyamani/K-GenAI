@@ -4,6 +4,11 @@ import {
   ReconnectInterval,
 } from "eventsource-parser";
 
+
+const OPENAI_API_KEY="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";
+const OPENAI_PROXY = "";
+
+
 export interface OpenAIStreamPayload {
   model: string;
   messages: { role: string; content: string }[];
@@ -22,12 +27,12 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
 
   let counter = 0;
 
-  const apiURL = process.env.OPENAI_PROXY == "" ? "https://api.openai.com" : process.env.OPENAI_PROXY;
+  const apiURL = OPENAI_PROXY == "" ? "https://api.openai.com" : OPENAI_PROXY;
 
   const res = await fetch(apiURL + "/v1/chat/completions", {
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY ?? ""}`,
+      Authorization: `Bearer ${OPENAI_API_KEY ?? ""}`,
     },
     method: "POST",
     body: JSON.stringify(payload),
