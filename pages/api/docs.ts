@@ -42,7 +42,7 @@ const handler = async (req: Request): Promise<Response> => {
   const input = query.replace(/\n/g, " ");
   // console.log("input: ", input);
 
-  const apiKey = process.env.OPENAI_API_KEY;
+  const apiKey = OPENAI_API_KEY;
   
   const apiURL = process.env.OPENAI_PROXY == "" ? "https://api.openai.com" : process.env.OPENAI_PROXY;
 

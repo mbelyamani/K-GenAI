@@ -4,7 +4,7 @@ import * as cheerio from "cheerio";
 
 // embedding doc sizes
 const docSize: number = 1000;
-
+const OPENAI_API_KEY="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";
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
@@ -21,7 +21,7 @@ export default async function handle(
       console.log("\nDocument length: \n", body.length);
       console.log("\nURL: \n", url);
 
-      const apiKey = process.env.OPENAI_API_KEY;
+      const apiKey = OPENAI_API_KEY;
       const apiURL = process.env.OPENAI_PROXY == "" ? "https://api.openai.com" : process.env.OPENAI_PROXY;
 
       const embeddingResponse = await fetch(
