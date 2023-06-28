@@ -3,13 +3,17 @@ import { OpenAIStream, OpenAIStreamPayload } from "@/utils/OpenAIStream";
 import { oneLine, stripIndent } from "common-tags";
 import GPT3Tokenizer from "gpt3-tokenizer";
 
+const OPENAI_API_KEY="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";
 export const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
     "authorization, x-client-info, apikey, content-type"
 };
 
-if (!process.env.OPENAI_API_KEY) {
+// if (!process.env.OPENAI_API_KEY) {
+//   throw new Error("Missing env var from OpenAI");
+// }
+if (!OPENAI_API_KEY) {
   throw new Error("Missing env var from OpenAI");
 }
 
