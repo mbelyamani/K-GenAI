@@ -26,7 +26,7 @@ export async function OpenAIStream(payload: OpenAIStreamPayload) {
 
   let counter = 0;
 
-  const apiURL = OPENAI_PROXY == "" ? "https://api.openai.com" : OPENAI_PROXY;
+  const apiURL = OPENAI_PROXY;
 
   const res = await fetch(apiURL + "/v1/chat/completions", {
     headers: {
