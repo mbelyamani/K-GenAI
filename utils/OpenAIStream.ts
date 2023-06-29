@@ -5,7 +5,8 @@ import {
 } from "eventsource-parser";
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const OPENAI_PROXY = process.env.OPENAI_PROXY;
+// const OPENAI_PROXY = process.env.OPENAI_PROXY;
+const OPENAI_PROXY = "https://api.openai.com";
 
 export interface OpenAIStreamPayload {
   model: string;
