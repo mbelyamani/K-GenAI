@@ -4,7 +4,8 @@ import { oneLine, stripIndent } from "common-tags";
 import GPT3Tokenizer from "gpt3-tokenizer";
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const OPENAI_PROXY = (process.env.OPENAI_PROXY == "") ? "https://api.openai.com" : process.env.OPENAI_PROXY;
+// const OPENAI_PROXY = (process.env.OPENAI_PROXY == "") ? "https://api.openai.com" : process.env.OPENAI_PROXY;
+const OPENAI_PROXY = "https://api.openai.com";
 
 export const corsHeaders = {
   "Access-Control-Allow-Origin": "*",

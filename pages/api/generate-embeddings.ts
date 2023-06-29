@@ -6,7 +6,8 @@ import * as cheerio from "cheerio";
 const docSize: number = 1000;
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-const OPENAI_PROXY = (process.env.OPENAI_PROXY == "") ? "https://api.openai.com" : process.env.OPENAI_PROXY;
+// const OPENAI_PROXY = (process.env.OPENAI_PROXY == "") ? "https://api.openai.com" : process.env.OPENAI_PROXY;
+const OPENAI_PROXY = "https://api.openai.com";
 
 
 export default async function handle(
