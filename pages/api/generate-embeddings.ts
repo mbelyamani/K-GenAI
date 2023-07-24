@@ -2,12 +2,13 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { supabaseClient } from "@/lib/embeddings-supabase";
 import * as cheerio from "cheerio";
 
+
 // embedding doc sizes
 const docSize: number = 1000;
 
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-// const OPENAI_PROXY = (process.env.OPENAI_PROXY == "") ? "https://api.openai.com" : process.env.OPENAI_PROXY;
-const OPENAI_PROXY = "https://api.openai.com";
+const OPENAI_PROXY = process.env.OPENAI_PROXY;
+const PDF2TEXT_PROXY = process.env.PDF2TEXT_PROXY;
 
 
 export default async function handle(
@@ -74,18 +75,35 @@ async function getDocuments(urls: string[]) {
   const documents = [];
   for (const url of urls) {
     let fetchURL = url;
+    let articleText = "";
     if (process.env.SPLASH_URL != "") {
       fetchURL = `${process.env.SPLASH_URL}/render.html?url=${encodeURIComponent(url)}&timeout=10&wait=0.5`
     }
     console.log("fetching url: " + fetchURL);
 
-    const response = await fetch(fetchURL);
-    const html = await response.text();
-    const $ = cheerio.load(html);
-    // tag based e.g. <main>
-    const articleText = $("body").text();
-    // class bsaed e.g. <div class="docs-content">
-    // const articleText = $(".docs-content").text();
+    if (fetchURL.endsWith('.pdf')){
+      await fetch(PDF2TEXT_PROXY + '/pdf2text', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url: fetchURL })
+      }).then(function (response) {
+          console.log("We are getting response ... Fetching url is ending with .pdf: " + fetchURL);
+          const respJson = response.json();
+          return respJson;
+        })
+        .then(function (data) {
+          articleText = JSON.stringify(data);
+        });
+    } else {
+      const response = await fetch(fetchURL);
+      const html = await response.text();
+      const $ = cheerio.load(html);
+      // tag based e.g. <main>
+      articleText = $("body").text();
+    }
 
     let start = 0;
     while (start < articleText.length) {
